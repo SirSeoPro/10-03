@@ -47,7 +47,65 @@ dpkg -i kibana-8.17.3-amd64.deb
 
 <details>
 
-Мной был установлен logstash и произведенна попытка создать 2 вида yaml файлов. К сожалению ни одна из них не привела к тому, что внутри 
+Мной был установлен logstash и произведенна попытка создать 2 вида yaml файлов. К сожалению ни одна из них не привела к тому, что внутри kibana появился индекс nginx. 
+yaml 1: /etc/logstash/conf.d/nginx.conf
+
+```
+
+input {
+  file {
+    path => "/var/log/nginx/access.log"
+    start_position => "beginning"
+  }
+}
+
+filter {
+  grok {
+    match => { "message" => "%{COMBINEDAPACHELOG}" }
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["localhost:9200"]
+    index => "nginx-access-logs-%{+YYYY.MM.dd}"
+  }
+  stdout { codec => rubydebug }
+}
+
+```
+
+yaml2: etc/logstash/conf.d/logstash.conf
+
+```
+
+input {
+  file {
+    path => "/var/log/nginx/access.log"
+    start_position => "beginning"
+ }
+}
+
+filter {
+  grok {
+    match => { "message" => "%{IPORHOST:remote_ip} - %{DATA:user_name}
+\[%{HTTPDATE:access_time}\] \"%{WORD:http_method} %{DATA:url}
+HTTP/%{NUMBER:http_version}\" %{NUMBER:response_code} %{NUMBER:body_sent_bytes}
+\"%{DATA:referrer}\" \"%{DATA:agent}\"" }
+    }
+    mutate {
+         remove_field => [ "host" ]
+    }
+}
+
+
+output {
+  elasticsearch {
+  hosts => "localhost:9200"
+  data_stream => "true"
+
+```
+
 
 
 </details>
