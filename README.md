@@ -31,7 +31,7 @@ wget https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.17.3
 dpkg -i kibana-8.17.3-amd64.deb
 ```
 
-![image1](https://github.com/SirSeoPro/10-03/blob/main/1.png)
+![image2](https://github.com/SirSeoPro/10-03/blob/main/2.png)
 
 </details>
 
@@ -47,8 +47,8 @@ dpkg -i kibana-8.17.3-amd64.deb
 
 <details>
 
+Мной был установлен logstash и произведенна попытка создать 2 вида yaml файлов. К сожалению ни одна из них не привела к тому, что внутри 
 
-![image1](https://github.com/SirSeoPro/10-03/blob/main/1.png)
 
 </details>
 
@@ -63,9 +63,37 @@ dpkg -i kibana-8.17.3-amd64.deb
 ### Ответ:
 
 <details>
+Создадим файл /etc/logstash/conf.d/nginx.conf
 
+```
 
-![image1](https://github.com/SirSeoPro/10-03/blob/main/1.png)
+input {
+  file {
+    path => "/var/log/nginx/access.log"
+    start_position => "beginning"
+    sincedb_path => "/dev/null"
+  }
+}
+
+filter {
+  grok {
+    match => { "message" => "%{COMBINEDAPACHELOG}" }
+  }
+  date {
+    match => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    index => "nginx-logs-%{+YYYY.MM.dd}"
+  }
+}
+
+```
+
+![image3](https://github.com/SirSeoPro/10-03/blob/main/3.png)
 
 </details>
 
