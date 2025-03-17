@@ -114,6 +114,11 @@ output {
 
 ![image5](https://github.com/SirSeoPro/10-03/blob/main/5.png)
 
+----
+После отправки ДЗ на проверку попробовал ещё раз, и увидел, что файлы логов отображаются в "Index management"
+
+![image6](https://github.com/SirSeoPro/10-03/blob/main/6.png)
+
 </details>
 
 ---
