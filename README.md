@@ -48,6 +48,7 @@ dpkg -i kibana-8.17.3-amd64.deb
 <details>
 
 Мной был установлен logstash и произведенна попытка создать 2 вида yaml файлов. К сожалению ни одна из них не привела к тому, что внутри kibana появился индекс nginx. 
+</br>
 yaml 1: /etc/logstash/conf.d/nginx.conf
 
 ```
@@ -75,6 +76,7 @@ output {
 
 ```
 
+</br>
 yaml2: etc/logstash/conf.d/logstash.conf
 
 ```
@@ -106,7 +108,11 @@ output {
 
 ```
 
+</br>
 
+Почему не видит индексы - не понимаю
+
+![image5](https://github.com/SirSeoPro/10-03/blob/main/5.png)
 
 </details>
 
@@ -152,6 +158,7 @@ output {
 ```
 
 ![image3](https://github.com/SirSeoPro/10-03/blob/main/3.png)
+![image4](https://github.com/SirSeoPro/10-03/blob/main/4.png)
 
 </details>
 
