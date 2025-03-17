@@ -10,7 +10,6 @@
 
 <details>
 
-
 ![image1](https://github.com/SirSeoPro/10-03/blob/main/1.png)
 
 </details>
@@ -27,6 +26,10 @@
 
 <details>
 
+```
+wget https://mirror.yandex.ru/mirrors/elastic/8/pool/main/k/kibana/kibana-8.17.3-amd64.deb
+dpkg -i kibana-8.17.3-amd64.deb
+```
 
 ![image1](https://github.com/SirSeoPro/10-03/blob/main/1.png)
 
